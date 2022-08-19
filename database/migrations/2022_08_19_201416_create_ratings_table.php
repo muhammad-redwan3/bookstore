@@ -14,7 +14,20 @@ return new class extends Migration
     public function up()
     {
         Schema::create('ratings', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
+
+            $table->foreignId('book_id')
+                ->constrained('books')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
+
+            $table->unsignedInteger('value');
             $table->timestamps();
         });
     }
