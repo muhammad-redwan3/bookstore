@@ -13,7 +13,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('مكتبة حسوب') }}
+                        {{ __('Dashboard') }}
                     </x-jet-nav-link>
                 </div>
             </div>
@@ -71,7 +71,7 @@
 
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
-                    <x-jet-dropdown align="left" width="48">
+                    <x-jet-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                 <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
@@ -93,11 +93,11 @@
                         <x-slot name="content">
                             <!-- Account Management -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('إدارة الحساب') }}
+                                {{ __('Manage Account') }}
                             </div>
 
                             <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                                {{ __('الملف الشخصي') }}
+                                {{ __('Profile') }}
                             </x-jet-dropdown-link>
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -114,7 +114,7 @@
 
                                 <x-jet-dropdown-link href="{{ route('logout') }}"
                                          @click.prevent="$root.submit();">
-                                    {{ __('تسجيل خروج') }}
+                                    {{ __('Log Out') }}
                                 </x-jet-dropdown-link>
                             </form>
                         </x-slot>
@@ -138,7 +138,7 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                {{ __('مكتبة حسوب') }}
+                {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
         </div>
 
@@ -160,7 +160,7 @@
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
                 <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
-                    {{ __('الملف الشخصي') }}
+                    {{ __('Profile') }}
                 </x-jet-responsive-nav-link>
 
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -175,7 +175,7 @@
 
                     <x-jet-responsive-nav-link href="{{ route('logout') }}"
                                    @click.prevent="$root.submit();">
-                        {{ __('تسجيل خروج') }}
+                        {{ __('Log Out') }}
                     </x-jet-responsive-nav-link>
                 </form>
 

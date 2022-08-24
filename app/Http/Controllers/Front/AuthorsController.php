@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Front;
 
-class AuthorsController
+use App\Http\Controllers\Controller;
+
+class AuthorsController  extends Controller
 {
 
 }

@@ -25,4 +25,13 @@ class Book extends Model
     {
         return $this->belongsToMany(Author::class,'book_author');
     }
+
+    public function rate()
+    {
+
+    }
+
+    public function ratings(){
+
+    }
 }

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>مكتبة حسوب</title>
+    <title>مكتبة النور</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -92,7 +92,7 @@
         <div>
             <nav class="navbar navbar-expand-lg navbar-light bg-white">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="{{ url('/') }}">مكتبة حسوب</a>
+                    <a class="navbar-brand" href="{{ url('/') }}">مكتبة النور</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     </button>
@@ -101,47 +101,47 @@
                             @auth
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('cart.view') }}">
-                                        @if(Auth::user()->booksInCart()->count() > 0)
-                                            <span class="badge bg-secondary">{{ Auth::user()->booksInCart()->count() }}</span>
-                                        @else
-                                            <span class="badge bg-secondary">0</span>
-                                        @endif
-                                            العربة 
-                                        <i class="fas fa-shopping-cart"></i> 
+{{--                                        @if(Auth::user()->booksInCart()->count() > 0)--}}
+{{--                                            <span class="badge bg-secondary">{{ Auth::user()->booksInCart()->count() }}</span>--}}
+{{--                                        @else--}}
+{{--                                            <span class="badge bg-secondary">0</span>--}}
+{{--                                        @endif--}}
+                                            العربة
+                                        <i class="fas fa-shopping-cart"></i>
                                     </a>
                                 </li>
                             @endauth
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('gallery.categories.index') }}">
-                                        التصنيفات                                        
-                                    <i class="fas fa-list"></i> 
+                                        التصنيفات
+                                    <i class="fas fa-list"></i>
                                 </a>
                             </li>
 
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('gallery.publishers.index') }}">
-                                    الناشرون                                         
-                                    <i class="fas fa-table"></i> 
+                                    الناشرون
+                                    <i class="fas fa-table"></i>
                                 </a>
                             </li>
 
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('gallery.authors.index') }}">
-                                    المؤلفون                                         
-                                    <i class="fas fa-pen"></i> 
+                                    المؤلفون
+                                    <i class="fas fa-pen"></i>
                                 </a>
                             </li>
 
                             @auth
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('my.product') }}">
-                                        مشترياتي     
-                                        <i class="fas fa-basket-shopping"></i> 
+                                        مشترياتي
+                                        <i class="fas fa-basket-shopping"></i>
                                     </a>
                                 </li>
                             @endauth
                         </ul>
-                        
+
                         <ul class="navbar-nav mr-auto">
                             @guest
                                 <li class="nav-item">
@@ -162,7 +162,7 @@
                                         @can('update-books')
                                             <a href="{{ route('admin.index') }}" class="dropdown-item">لوحة الإدارة</a>
                                         @endcan
-                                    
+
                                         <div class="pt-4 pb-1 border-t border-gray-200">
                                             <div class="flex items-center px-4">
                                                 <div>
@@ -237,7 +237,7 @@
                 @yield('content')
             </main>
         </div>
-    
+
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>

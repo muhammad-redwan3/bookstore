@@ -2,12 +2,19 @@
 
 namespace App\Repositories\Books;
 
+use App\Models\Book;
+
 class BookRepository implements BookInterface
 {
+    private $book;
+    public function __construct(Book $book)
+    {
+        $this->book = $book;
+    }
 
     public function all()
     {
-        // TODO: Implement all() method.
+        return $this->book::paginate(12);
     }
 
     public function store($request)
@@ -22,11 +29,16 @@ class BookRepository implements BookInterface
 
     public function getById($id)
     {
-        // TODO: Implement getById() method.
+      return $this->book->findOrFail($id);
     }
 
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+        return $this->getById($id)->delete();
+    }
+
+    public function search($request)
+    {
+        return $this->book->where('title','like',"%{$request}%")->paginate(12);
     }
 }

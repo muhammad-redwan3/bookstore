@@ -8,4 +8,6 @@ use App\Repositories\Main\MainInterface;
 interface BookInterface extends MainInterface
 {
     // Add any function for just book
+
+    public function search($request);
 }

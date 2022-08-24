@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Front;
 
-class CartController
+use App\Http\Controllers\Controller;
+
+class CartController  extends Controller
 {
 
 }

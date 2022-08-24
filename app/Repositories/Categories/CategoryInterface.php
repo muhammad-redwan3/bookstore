@@ -2,7 +2,9 @@
 
 namespace App\Repositories\Categories;
 
-interface CategoryInterface
+use App\Repositories\Main\MainInterface;
+
+interface CategoryInterface extends MainInterface
 {
 
 }

@@ -12,7 +12,7 @@
                         @auth
                             <div class="form text-center mb-2">
                                 <input id="bookId" type="hidden" value="{{ $book->id }}">
-                                <span class="text-muted mb-3"><input class="form-control d-inline mx-auto" id="quantity" name="quantity" type="number" value="1" min="1" max="{{ $book->number_of_copies }}" style="width:10%;" required></span> 
+                                <span class="text-muted mb-3"><input class="form-control d-inline mx-auto" id="quantity" name="quantity" type="number" value="1" min="1" max="{{ $book->number_of_copies }}" style="width:10%;" required></span>
                                 <button type="submit" class="btn bg-cart addCart me-2"><i class="fa fa-cart-plus"></i> أضف للسلة</button>
                             </div>
                         @endauth
@@ -34,7 +34,7 @@
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                         </span>
-                                        
+
                                         <span class="stars-inactive">
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                             <i class="fa fa-star" aria-hidden="true"></i>
@@ -45,7 +45,7 @@
                                     </div>
                                 </span>
 
-                                <span>عدد المقيّمين {{ $book->ratings()->count() }} مستخدم</span>
+{{--                                <span>عدد المقيّمين {{ $book->ratings()->count() }} مستخدم</span>--}}
                             </td>
                         </tr>
 
@@ -143,7 +143,7 @@
 @section('script')
     <script>
         $('.rating-star').click(function() {
-            
+
             var submitStars = $(this).attr('data-value');
 
             $.ajax({
@@ -178,18 +178,18 @@
                 method: 'POST',
                 url: url,
                 data: {
-                    quantity: quantity, 
+                    quantity: quantity,
                     id: bookId,
                     _token: token
                 },
-                success : function(data) {            
+                success : function(data) {
                     $('span.badge').text(data.num_of_product);
                     toastr.success('تم إضافة الكتاب بنجاح')
                 },
                 error: function() {
                     alert('حدث خطأ ما');
                 }
-            })  
+            })
         });
     </script>
 @endsection

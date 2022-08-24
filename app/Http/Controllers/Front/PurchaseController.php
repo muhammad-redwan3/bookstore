@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Front;
 
-class PurchaseController
+use App\Http\Controllers\Controller;
+
+class PurchaseController  extends Controller
 {
 
 }
