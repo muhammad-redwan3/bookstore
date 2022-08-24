@@ -13,23 +13,23 @@
 <hr>
 <div class="row">
     <div class="col-md-12">
-        <table id="books-table" class="table table-stribed text-right" width="100%" cellspacing="0">
+        <table id="books-table" class="table table-striped table-bordered text-right" width="100%" cellspacing="0">
             <thead>
                 <tr>
                     <th>الاسم</th>
-                    <th>الوصف</th>
+                    <th>العنوان</th>
                     <th>خيارات</th>
                 </tr>
             </thead>
 
             <tbody>
-                 @foreach ($publishers as $publisher)
+                @foreach($publishers as $publisher)
                     <tr>
                         <td>{{ $publisher->name }}</td>
                         <td>{{ $publisher->address }}</td>
                         <td>
                             <a class="btn btn-info btn-sm" href="{{ route('publishers.edit', $publisher) }}"><i class="fa fa-edit"></i> تعديل</a> 
-                            <form method="POST" action="{{ route('publishers.destroy', $publisher) }}" style="display:inline-block">
+                            <form method="POST" action="{{ route('publishers.destroy', $publisher) }}" class="d-inline-block">
                                 @method('delete')
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد؟')"><i class="fa fa-trash"></i> حذف</button> 

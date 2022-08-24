@@ -7,8 +7,8 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="card mb-4 col-md-8">
-        <div class="card-header text-right">
-            أضف كتابًا جديدًا
+        <div class="card-header text-">
+                أضف كتابًا جديدًا
         </div>
         <div class="card-body">
             <form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data">
@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="cover_image" class="col-md-4 col-form-label text-md-right">صورة الغلاف</label>
+                    <label for="cover_image" class="col-md-4 col-form-label text-md-right">صورة الكتاب</label>
 
                     <div class="col-md-6">
                         <input id="cover_image" accept="image/*" type="file" onchange="readCoverImage(this);" class="form-control @error('cover_image') is-invalid @enderror" name="cover_image" value="{{ old('cover_image') }}" autocomplete="cover_image">
@@ -67,7 +67,6 @@
                                 <option value="{{ $categry->id }}">{{ $categry->name }}</option>
                             @endforeach
                         </select>
-
                         @error('category')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -80,13 +79,12 @@
                     <label for="authors" class="col-md-4 col-form-label text-md-right">المؤلفون</label>
 
                     <div class="col-md-6">
-                        <select id="authors" multiple class="form-control" name="authors[]" >
+                        <select id="authors" multiple class="form-control" name="authors[]">
                             <option disabled selected>اختر المؤلفين</option>
                             @foreach($authors as $author)
                                 <option value="{{ $author->id }}">{{ $author->name }}</option>
                             @endforeach
                         </select>
-
                         @error('authors')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -105,7 +103,6 @@
                                 <option value="{{ $publisher->id }}">{{ $publisher->name }}</option>
                             @endforeach
                         </select>
-
                         @error('publisher')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -118,7 +115,7 @@
                     <label for="description" class="col-md-4 col-form-label text-md-right">الوصف</label>
 
                     <div class="col-md-6">
-                        <textarea id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" autocomplete="description">{{ old('description') }}</textarea>
+                        <textarea id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" autocomplete="description"></textarea>
 
                         @error('description')
                             <span class="invalid-feedback" role="alert">
@@ -132,7 +129,7 @@
                     <label for="publish_year" class="col-md-4 col-form-label text-md-right">سنة النشر</label>
 
                     <div class="col-md-6">
-                        <input id="publish_year" type="text" class="form-control @error('publish_year') is-invalid @enderror" name="publish_year" value="{{ old('publish_year') }}" autocomplete="publish_year">
+                        <input id="publish_year" type="number" class="form-control @error('publish_year') is-invalid @enderror" name="publish_year" value="{{ old('publish_year') }}" autocomplete="publish_year">
 
                         @error('publish_year')
                             <span class="invalid-feedback" role="alert">
@@ -146,7 +143,7 @@
                     <label for="number_of_pages" class="col-md-4 col-form-label text-md-right">عدد الصفحات</label>
 
                     <div class="col-md-6">
-                        <input id="number_of_pages" type="text" class="form-control @error('number_of_pages') is-invalid @enderror" name="number_of_pages" value="{{ old('number_of_pages') }}" autocomplete="number_of_pages">
+                        <input id="number_of_pages" type="number" class="form-control @error('number_of_pages') is-invalid @enderror" name="number_of_pages" value="{{ old('number_of_pages') }}" autocomplete="number_of_pages">
 
                         @error('number_of_pages')
                             <span class="invalid-feedback" role="alert">
@@ -160,7 +157,7 @@
                     <label for="number_of_copies" class="col-md-4 col-form-label text-md-right">عدد النسخ</label>
 
                     <div class="col-md-6">
-                        <input id="number_of_copies" type="text" class="form-control @error('number_of_copies') is-invalid @enderror" name="number_of_copies" value="{{ old('number_of_copies') }}" autocomplete="number_of_copies">
+                        <input id="number_of_copies" type="number" class="form-control @error('number_of_copies') is-invalid @enderror" name="number_of_copies" value="{{ old('number_of_copies') }}" autocomplete="number_of_copies">
 
                         @error('number_of_copies')
                             <span class="invalid-feedback" role="alert">
@@ -174,7 +171,7 @@
                     <label for="price" class="col-md-4 col-form-label text-md-right">السعر</label>
 
                     <div class="col-md-6">
-                        <input id="price" type="text" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" autocomplete="price">
+                        <input id="price" type="number" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" autocomplete="price">
 
                         @error('price')
                             <span class="invalid-feedback" role="alert">

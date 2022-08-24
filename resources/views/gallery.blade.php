@@ -1,87 +1,87 @@
-@extends('layouts.app')
+@extends('layouts.main')
+
+
+@section('head')
+<style>
+    .card .card-body .card-title {
+        height: 40px;
+        overflow: hidden;
+    }
+</style>
+
+@endsection
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-header">معرض الكتب</div>
-
-                <div class="card-body">
-
-                    <div class="row justify-content-center">
-{{--                        <form class="form-inline col-md-6 justify-content-center" action="{{ route('search') }}" method="GET">--}}
-{{--                            <input type="text" class="form-control mx-sm-3 mb-2" name="term">--}}
-{{--                            <button type="submit" class="btn btn-secondary mb-2">ابحث</button>--}}
-{{--                        </form>--}}
-                    </div>
-                    <hr>
-                    <br>
-                    <h3>{{ $title }}</h3>
-                    <div class="row">
-                        @if ($books->count())
-                            @foreach ($books as $book)
-                                @if ($book->number_of_copies > 0)
-                                    <div class="col-lg-3 col-md-4 col-6" style="margin-bottom:10px">
-                                        <div class="d-block mb-2 h-100 border rounded" style="padding:10px">
-{{--                                            <a href="{{ route('book.details', $book->id) }}" style="color:#555555">--}}
-                                                <img class="img-fluid img-thumbnail" src="{{ asset('storage/' . $book->cover_image) }}" alt="">
-                                                <b><p style="height:25px">{{ $book->title }}</p></b>
-{{--                                            </a>--}}
-                                            <span class="score">
-                                                <div class="score-wrap">
-{{--                                                    <span class="stars-active" style="width: {{ $book->rate()*20 }}%">--}}
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                    </span>
-
-                                                    <span class="stars-inactive">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                    </span>
-                                                </div>
-                                            </span>
-                                            @if ($book->category != NULL)
-                                                <br><a style="color:#525252" href="">{{ $book->category->name }}</a>
-                                            @endif
-{{--                                        {{ route('gallery.categories.show', $book->category) }}--}}
-                                            @if ($book->authors->isNotEmpty())
-                                                <br><b>تأليف: </b>
-                                                @foreach($book->authors as $author)
-                                                    {{ $loop->first ? '' : 'و' }}
-                                                    <a style="color:#525252" href="">{{ $author->name }} </a>
-                                                @endforeach
-                                            @endif
-{{--                                        {{ route('gallery.authors.show', $author) }}--}}
-                                            <br>
-                                            <b>السعر: </b>{{ $book->price }} $
-
-{{--                                            @auth--}}
-{{--                                                <form method="POST" action="{{ route('cart.add') }}">--}}
-{{--                                                    @csrf--}}
-{{--                                                    <input name="id" type="hidden" value="{{ $book->id }}">--}}
-{{--                                                    <input class="form-control" name="quantity" type="number" value="1" min="1" max="{{ $book->number_of_copies }}" style="width:40%; float:right" required>--}}
-{{--                                                    <button type="submit" class="btn btn-primary" style="margin-right: 10px"> أضف <i class="fas fa-cart-plus"></i></button>--}}
-{{--                                                </form>--}}
-{{--                                            @endauth--}}
-                                        </div>
-                                    </div>
-                                @endif
-                            @endforeach
-                        @else
-                            <h3 style="margin:0 auto">لا نتائج</h3>
-                        @endif
-                    </div>
-                    {{ $books->render() }}
-                </div>
+    <div class="row">
+        <form action="{{ route('search') }}" method="GET">
+            <div class="row d-flex justify-content-center">
+                <input type="text" class="col-3 mx-sm-3 mb-2" name="term" placeholder="ابحث عن كتاب...">
+                <button type="submit" class="col-1 btn btn-secondary bg-secondary mb-2">ابحث</button>
             </div>
+        </form>
+    </div>
+    <hr>
+    <h3 class="my-3">{{$title}}</h3>
+
+    <div class="mt-50 mb-50">
+        <div class="row">
+            @if ($books->count())
+                @foreach ($books as $book)
+                    @if ($book->number_of_copies > 0)
+                        <div class="col-lg-3 col-md-4 col-sm-6 mt-2">
+                            <div class="card mb-3">
+                                <div>
+                                    <div class="card-img-actions"> 
+                                        <a href="{{ route('book.details', $book) }}">
+                                            <img src="{{ asset('storage/' . $book->cover_image) }}" class="card-img img-fluid" width="96" height="350" alt=""> 
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body bg-light text-center">
+                                    <div class="mb-2">
+                                        <h6 class="font-weight-semibold card-title mb-2"> <a href="{{ route('book.details', $book) }}" class="text-default mb-0" data-abc="true">{{ $book->title }}</a> </h6> 
+                                        <a href="{{ route('gallery.categories.show', $book->category) }}" class="text-muted" data-abc="true">
+                                            @if ($book->category != NULL)
+                                                {{ $book->category->name }}
+                                            @endif
+                                        </a>
+                                    </div>
+                                    <h3 class="mb-0 font-weight-semibold">{{ $book->price }} $</h3>
+                                    <div> 
+                                        <span class="score">
+                                            <div class="score-wrap">
+                                                <span class="stars-active" style="width:{{ $book->rate()*20 }}%">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                </span>
+                                                <span class="stars-inactive">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
+
+            @else
+                <div class="alert alert-info" role="alert">
+                    لانتائج
+                </div>
+            @endif
         </div>
+    </div>
+    {{ $books->links() }}
     </div>
 </div>
 @endsection

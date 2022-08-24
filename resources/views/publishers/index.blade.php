@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
 
 @section('content')
@@ -10,10 +10,11 @@
 
                 <div class="card-body">
                     <div class="row justify-content-center">
-
-                        <form class="form-inline col-md-6" action="{{ route('gallery.publishers.search') }}" method="GET">
-                            <input type="text" class="form-control mx-sm-3 mb-2" name="term">
-                            <button type="submit" class="btn btn-secondary mb-2">ابحث</button>
+                        <form action="{{ route('gallery.publishers.search') }}" method="GET">
+                            <div class="row d-flex justify-content-center">
+                                <input type="text" class="col-4 mx-sm-3 mb-2" name="term" placeholder="ابحث عن ناشر...">
+                                <button type="submit" class="col-1 btn btn-secondary bg-secondary mb-2">ابحث</button>
+                            </div>
                         </form>
 
                     </div>
@@ -22,7 +23,7 @@
                     
                     <br>
 
-                    <h3>{{ $title }}</h3>
+                    <h3 class="mb-4">{{ $title }}</h3>
 
                     @if($publishers->count())
                         <ul class="list-group">
@@ -35,7 +36,9 @@
                             @endforeach
                         </ul>
                     @else
-                        <h4>لا نتائج</h4>
+                        <div class="col-12 alert alert-info mt-4 mx-auto text-center">
+                            لا نتائج                                
+                        </div>
                     @endif
                 </div>
             </div>

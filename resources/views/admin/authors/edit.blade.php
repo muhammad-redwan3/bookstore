@@ -7,8 +7,8 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="card mb-4 col-md-8">
-        <div class="card-header text-right">
-            عدّل بيانات المؤلف      
+        <div class="card-header text-">
+            عدّل بيانات المؤلف   
         </div>
         <div class="card-body">
             <form action="{{ route('authors.update', $author) }}" method="POST" enctype="multipart/form-data">
@@ -41,7 +41,6 @@
                         @enderror
                     </div>
                 </div>
-
 
                 <div class="form-group row mb-0">
                     <div class="col-md-1">

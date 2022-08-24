@@ -7,11 +7,11 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="card mb-4 col-md-8">
-        <div class="card-header text-right">
-            عدّل بيانات الكتاب      
+        <div class="card-header text-">
+            عدّل بيانات الكتاب   
         </div>
         <div class="card-body">
-            <form action="{{ route('books.show', $book) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('books.update', $book) }}" method="POST" enctype="multipart/form-data">
                 @method('patch')
                 @csrf
                 <div class="form-group row">
@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="cover_image" class="col-md-4 col-form-label text-md-right">صورة الغلاف</label>
+                    <label for="cover_image" class="col-md-4 col-form-label text-md-right">صورة الكتاب</label>
 
                     <div class="col-md-6">
                         <input id="cover_image" accept="image/*" type="file" onchange="readCoverImage(this);" class="form-control @error('cover_image') is-invalid @enderror" name="cover_image" value="{{ old('cover_image') }}" autocomplete="cover_image">
@@ -68,7 +68,6 @@
                                 <option value="{{ $category->id }}" {{ $book->category == $category ? "selected" : ""  }}>{{ $category->name }}</option>
                             @endforeach
                         </select>
-
                         @error('category')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -81,13 +80,12 @@
                     <label for="authors" class="col-md-4 col-form-label text-md-right">المؤلفون</label>
 
                     <div class="col-md-6">
-                        <select id="authors" multiple class="form-control" name="authors[]" >
+                        <select id="authors" multiple class="form-control" name="authors[]">
                             <option disabled {{ $book->authors()->count() == 0 ? 'selected' : '' }}>اختر المؤلفين</option>
                             @foreach($authors as $author)
                                 <option value="{{ $author->id }}" {{ $book->authors->contains($author) ? 'selected' : '' }}>{{ $author->name }}</option>
                             @endforeach
                         </select>
-
                         @error('authors')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -103,10 +101,9 @@
                         <select id="publisher" class="form-control" name="publisher">
                             <option disabled {{ $book->publisher == null ? 'selected' : '' }}>اختر ناشرًا</option>
                             @foreach($publishers as $publisher)
-                                <option value="{{ $publisher->id }}" {{ $book->publisher == $publisher ? 'selected' : '' }}>{{ $publisher->name }}>{{ $publisher->name }}</option>
+                                <option value="{{ $publisher->id }}" {{ $book->publisher == $publisher ? 'selected' : '' }}>{{ $publisher->name }}</option>
                             @endforeach
                         </select>
-
                         @error('publisher')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -119,7 +116,7 @@
                     <label for="description" class="col-md-4 col-form-label text-md-right">الوصف</label>
 
                     <div class="col-md-6">
-                        <textarea id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" autocomplete="description">{{ $book->description }}</textarea>
+                        <textarea id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" autocomplete="description">{{ $book->description }}</textarea>
 
                         @error('description')
                             <span class="invalid-feedback" role="alert">
@@ -133,7 +130,7 @@
                     <label for="publish_year" class="col-md-4 col-form-label text-md-right">سنة النشر</label>
 
                     <div class="col-md-6">
-                        <input id="publish_year" type="text" class="form-control @error('publish_year') is-invalid @enderror" name="publish_year" value="{{ $book->publish_year }}" autocomplete="publish_year">
+                        <input id="publish_year" type="number" class="form-control @error('publish_year') is-invalid @enderror" name="publish_year" value="{{ $book->publish_year }}" autocomplete="publish_year">
 
                         @error('publish_year')
                             <span class="invalid-feedback" role="alert">
@@ -147,7 +144,7 @@
                     <label for="number_of_pages" class="col-md-4 col-form-label text-md-right">عدد الصفحات</label>
 
                     <div class="col-md-6">
-                        <input id="number_of_pages" type="text" class="form-control @error('number_of_pages') is-invalid @enderror" name="number_of_pages" value="{{ $book->number_of_pages }}" autocomplete="number_of_pages">
+                        <input id="number_of_pages" type="number" class="form-control @error('number_of_pages') is-invalid @enderror" name="number_of_pages" value="{{ $book->number_of_pages }}" autocomplete="number_of_pages">
 
                         @error('number_of_pages')
                             <span class="invalid-feedback" role="alert">
@@ -161,7 +158,7 @@
                     <label for="number_of_copies" class="col-md-4 col-form-label text-md-right">عدد النسخ</label>
 
                     <div class="col-md-6">
-                        <input id="number_of_copies" type="text" class="form-control @error('number_of_copies') is-invalid @enderror" name="number_of_copies" value="{{ $book->number_of_copies }}" autocomplete="number_of_copies">
+                        <input id="number_of_copies" type="number" class="form-control @error('number_of_copies') is-invalid @enderror" name="number_of_copies" value="{{ $book->number_of_copies }}" autocomplete="number_of_copies">
 
                         @error('number_of_copies')
                             <span class="invalid-feedback" role="alert">
@@ -175,7 +172,7 @@
                     <label for="price" class="col-md-4 col-form-label text-md-right">السعر</label>
 
                     <div class="col-md-6">
-                        <input id="price" type="text" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ $book->price }}" autocomplete="price">
+                        <input id="price" type="number" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ $book->price }}" autocomplete="price">
 
                         @error('price')
                             <span class="invalid-feedback" role="alert">

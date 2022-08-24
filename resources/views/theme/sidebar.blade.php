@@ -4,7 +4,7 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
         <div class="sidebar-brand-icon">
-          <img style="width:70%" src="{!! asset('logo.png') !!}"> 
+          <img style="width:70%" src="{{ asset('logo.png') }}"> 
         </div>
       </a>
 
@@ -58,6 +58,12 @@
         <a class="nav-link text-right" href="{{ route('users.index') }}">
         <i class="fas fa-users"></i>
           <span>المستخدمون</span></a>
+      </li>
+
+      <li class="nav-item {{ request()->is('admin/allproduct*') ? 'active' : '' }}">
+        <a class="nav-link text-right" href="{{ route('all.product') }}">
+        <i class="fas fa-shopping-bag"></i>
+          <span>المشتريات</span></a>
       </li>
 
       <!-- Divider -->

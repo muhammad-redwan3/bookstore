@@ -1,11 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
 @section('content')
 <div class="container">
 
-    <div class="row justify-content-center">  
-        <div id="success" style="display: none" class="col-md-8 text-center h3 p-4 bg-success text-light rounded">تمت عملية الشراء بنجاح</div> 
-        <div class="col-md-8">
+    <div class="row justify-content-center">
+        <div id="success" style="display:none" class="col-md-8 text-center h3 p-4 bg-success text-light rounded">تمت عملية الشراء بنجاح</div>
+        @if(session('message'))
+            <div class="col-md-8 text-center h3 p-4 bg-success text-light rounded">تمت عملية الشراء بنجاح </div> 
+        @endif
+
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">عربة التسوق</div>
 
@@ -36,12 +40,12 @@
                                     <td>
                                         <form style="float:left; margin: auto 5px" method="post" action="{{ route('cart.remove_all', $item->id) }}">
                                             @csrf
-                                            <button class="btn btn-danger btn-sm" type="submit">أزل الكل</button>
+                                            <button class="btn btn-outline-danger btn-sm" type="submit">أزل الكل</button>
                                         </form>
 
                                         <form style="float:left; margin: auto 5px" method="post" action="{{ route('cart.remove_one', $item->id) }}">
                                             @csrf
-                                            <button class="btn btn-warning btn-sm" type="submit">أزل واحدًا</button>
+                                            <button class="btn btn-outline-warning btn-sm" type="submit">أزل واحدًا</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -49,14 +53,19 @@
                         @endforeach
                     </table>
 
-                    <h4>المجموع النهائي: {{ $totalPrice }} $</h4>
-                    <div id="paypal-button"></div>
-                    @else
+                    <h4 class="mb-5">المجموع النهائي: {{ $totalPrice }} $</h4>
 
-                    <h1>لا يوجد كتب في العربة</h1>
-                    
+                    <!-- Set up a container element for the button -->
+                    <div class="d-inline-block" id="paypal-button-container"></div>
+                    <a href="{{ route('credit.checkout')}}" class="d-inline-block mb-4 float-start btn bg-cart" style="text-decoration:none;">
+                        <span>بطاقة ائتمانية</span>
+                        <i class="fas fa-credit-card"></i>
+                    </a>
+                    @else
+                        <div class="alert alert-info text-center">
+                            لا يوجد كتب في العربة   
+                        </div>
                     @endif
-                    
                 </div>
             </div>
         </div>
@@ -65,36 +74,41 @@
 @endsection
 
 @section('script')
-    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+    <!-- Replace "test" with your own sandbox Business account app client ID -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AQRWbMAWt343SepNyor-YpDs4my0osewxk53gEf13osU9YwHSJk7Pqxd_Wy1vH-zICZtOrYS3Dz6jF4R&currency=USD"></script>
+
     <script>
-    paypal.Button.render({
-        env: 'sandbox', // Or 'production'
-        // Set up the payment:
-        // 1. Add a payment callback
-        payment: function(data, actions) {
-        // 2. Make a request to your server
-        return actions.request.post('/api/create-payment', {
-          userId: "{{ auth()->user()->id }}"
-        })
-            .then(function(res) {
-            // 3. Return res.id from the response
-            return res.id;
+      paypal.Buttons({
+        // Sets up the transaction when a payment button is clicked
+        createOrder: (data, actions) => {
+            return fetch('/api/paypal/create-payment', {
+                method: 'POST',
+                body:JSON.stringify({
+                    'userId' : "{{auth()->user()->id}}",
+                })
+            }).then(function(res) {
+                return res.json();
+            }).then(function(orderData) {
+                return orderData.id;
             });
         },
-        // Execute the payment:
-        // 1. Add an onAuthorize callback
-        onAuthorize: function(data, actions) {
-        // 2. Make a request to your server
-        return actions.request.post('/api/execute-payment', {
-            paymentID: data.paymentID,
-            payerID:   data.payerID,
-            userId: "{{ auth()->user()->id }}"
-        })
-        .then(function(res) {
-            $('#success').slideDown(200);
-            $('.card-body').slideUp(0);
-        });
+        // Finalize the transaction after payer approval
+        onApprove: (data, actions) => {
+            return fetch('/api/paypal/execute-payment' , {
+                method: 'POST',
+                body :JSON.stringify({
+                    orderId : data.orderID,
+                    userId: "{{ auth()->user()->id }}",
+                })
+            }).then(function(res) {
+                return res.json();
+            }).then(function(orderData) {
+                $('#success').slideDown(200);
+                $('.card-body').slideUp(0);
+            });
         }
-    }, '#paypal-button');
+      }).render('#paypal-button-container');
     </script>
+
 @endsection

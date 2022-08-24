@@ -9,27 +9,40 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>لوحة الإدارة - متجر الكتب</title>
+  <title>لوحة الإدارة - مكتبة حسوب</title>
 
   <!-- Custom fonts for this template-->
   <link href="{!! asset('theme/vendor/fontawesome-free/css/all.min.css') !!}" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  
   <!-- Custom styles for this template-->
   <link href="{!! asset('theme/css/sb-admin-2.min.css') !!}" rel="stylesheet">
-    <style>
-        .sidebar.toggled .nav-item .nav-link {
-            text-align: center !important;
-        }
-        .sidebar #sidebarToggle::after {
-            content: '\f105';
-        }
-        .sidebar.toggled #sidebarToggle::after {
-            content: '\f104';
 
-        }
-    </style>
-    @yield('head')
+  <!-- font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
+
+  <style>
+      body {
+        font-family: 'Cairo', sans-serif;
+        background-color: #f0f0f0;
+      }
+
+      .sidebar.toggled .nav-item .nav-link {
+          text-align: center !important;
+      }
+      .sidebar #sidebarToggle::after {
+          content: '\f105';
+      }
+      .sidebar.toggled #sidebarToggle::after {
+          content: '\f104';
+
+      }
+  </style>
+  @yield('head')
 </head>
 
 <body id="page-top" dir="rtl" style="text-align: right">
@@ -51,7 +64,7 @@
           @if(Session::has('flash_message'))
               <div class="p-3 mb-2 bg-success text-white rounded text-center">
                   {{ session('flash_message') }}
-              </div>
+              </div>  
           @endif
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -91,7 +104,7 @@
         <div class="modal-body">إذا كنت متأكد أنك تريد إنهاء الجلسة اضغط على زر خروج</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">إلغاء</button>
-          <a class="btn btn-primary"
+          <a class="btn btn-primary" 
              href="{{ route('logout') }}"
              onclick="event.preventDefault();
              document.getElementById('logout-form').submit();"
@@ -115,12 +128,8 @@
   <!-- Custom scripts for all pages-->
   <script src="{!! asset('theme/js/sb-admin-2.min.js') !!}"></script>
 
-  <!-- Page level plugins -->
-  <script src="{!! asset('theme/vendor/chart.js/Chart.min.js') !!}"></script>
-
-  <!-- Page level custom scripts -->
-  <script src="{!! asset('theme/js/demo/chart-area-demo.js') !!}"></script>
-  <script src="{!! asset('theme/js/demo/chart-pie-demo.js') !!}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
   @yield('script')
 </body>
 

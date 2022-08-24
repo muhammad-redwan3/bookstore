@@ -7,8 +7,8 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="card mb-4 col-md-8">
-        <div class="card-header text-right">
-            أضف ناشرًا جديدًا    
+        <div class="card-header text-">
+            أضف ناشرًا جديدًا
         </div>
         <div class="card-body">
             <form action="{{ route('publishers.store') }}" method="POST" enctype="multipart/form-data">
@@ -25,13 +25,13 @@
                             </span>
                         @enderror
                     </div>
-                </div> 
+                </div>
 
                 <div class="form-group row">
-                    <label for="address" class="col-md-4 col-form-label text-md-right">العنوان</label>
+                    <label for="address" class="col-md-4 col-form-label text-md-right">الوصف</label>
 
                     <div class="col-md-6">
-                        <textarea id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" autocomplete="address">{{ old('address') }}</textarea>
+                        <textarea id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" autocomplete="address"></textarea>
 
                         @error('address')
                             <span class="invalid-feedback" role="alert">
