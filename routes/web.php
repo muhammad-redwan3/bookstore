@@ -33,13 +33,16 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::get('/', [GalleryController::class, 'index'])->name('gallery.index');
 Route::get('/search', [GalleryController::class, 'search'])->name('search');
+Route::get('/categories/{id}/{slug}', [GalleryController::class, 'getByCategory'])->name('gallery.categories.show');
+
+
 
 Route::get('/book/{id}/{slug}', [BooksController::class, 'details'])->name('book.details');
 Route::post('/book/{book}/rate', [BooksController::class, 'rate'])->name('book.rate');
 
 Route::get('/categories', [CategoryController::class, 'list'])->name('gallery.categories.index');
 Route::get('/categories/search', [CategoryController::class, 'search'])->name('gallery.categories.search');
-Route::get('/categories/{category}', [CategoryController::class, 'result'])->name('gallery.categories.show');
+
 
 Route::get('/publishers', [PublishersController::class, 'list'])->name('gallery.publishers.index');
 Route::get('/publishers/search', [PublishersController::class, 'search'])->name('gallery.publishers.search');

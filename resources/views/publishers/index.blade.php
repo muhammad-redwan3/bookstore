@@ -20,7 +20,7 @@
                     </div>
 
                     <hr>
-                    
+
                     <br>
 
                     <h3 class="mb-4">{{ $title }}</h3>
@@ -30,14 +30,14 @@
                             @foreach($publishers as $publisher)
                                 <a style="color:grey" href="{{ route('gallery.publishers.show', $publisher) }}">
                                     <li class="list-group-item">
-                                        {{ $publisher->name }} ({{ $publisher->books->count() }})
+                                        {{ $publisher->name }} ({{ $publisher->books_count }})
                                     </li>
                                 </a>
                             @endforeach
                         </ul>
                     @else
                         <div class="col-12 alert alert-info mt-4 mx-auto text-center">
-                            لا نتائج                                
+                            لا نتائج
                         </div>
                     @endif
                 </div>

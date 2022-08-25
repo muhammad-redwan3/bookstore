@@ -14,7 +14,7 @@ class BookRepository implements BookInterface
 
     public function all()
     {
-        return $this->book::paginate(12);
+        return $this->book::with('category')->paginate(12);
     }
 
     public function store($request)
@@ -40,5 +40,13 @@ class BookRepository implements BookInterface
     public function search($request)
     {
         return $this->book->where('title','like',"%{$request}%")->paginate(12);
+    }
+
+    public function getByCategory($id)
+    {
+        return $this->book->whereHas('category' ,function ($q) use ($id)
+        {
+            $q->where('category_id',$id);
+        })->with('category')->paginate(12);
     }
 }

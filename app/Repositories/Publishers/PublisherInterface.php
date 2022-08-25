@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Repositories\Categories;
+namespace App\Repositories\Publishers;
 
 use App\Repositories\Main\MainInterface;
 
-interface CategoryInterface extends MainInterface
+interface PublisherInterface extends MainInterface
 {
     public function search($request);
 }

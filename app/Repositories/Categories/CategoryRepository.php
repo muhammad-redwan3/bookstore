@@ -2,12 +2,19 @@
 
 namespace App\Repositories\Categories;
 
+use App\Models\Category;
+
 class CategoryRepository implements CategoryInterface
 {
+    private $category;
+    public function __construct(Category $category)
+    {
+        $this->category = $category;
+    }
 
     public function all()
     {
-        // TODO: Implement all() method.
+      return  $this->category->withCount('book')->paginate(12)->sortBy('name');
     }
 
     public function store($request)
@@ -22,11 +29,16 @@ class CategoryRepository implements CategoryInterface
 
     public function getById($id)
     {
-        // TODO: Implement getById() method.
+        return $this->category->findOrFail($id);
     }
 
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+        return $this->getById($id)->delete();
+    }
+
+    public function search($request)
+    {
+        return $this->category->where('name','like',"%{$request}%")->paginate(12);
     }
 }

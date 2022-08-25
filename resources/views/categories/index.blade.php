@@ -20,7 +20,7 @@
                     </div>
 
                     <hr>
-                    
+
                     <br>
 
                     <h3 class="mb-4">{{ $title }}</h3>
@@ -28,16 +28,16 @@
                     @if($categories->count())
                         <ul class="list-group">
                             @foreach($categories as $category)
-                                <a style="color:grey" href="{{ route('gallery.categories.show', $category) }}">
+                                <a style="color:grey"  href="{{ route('gallery.categories.show',[$category->id,$category->slug]) }}"
                                     <li class="list-group-item">
-                                        {{ $category->name }} ({{ $category->books->count() }})
+                                        {{ $category->name }} ({{ $category->book_count }})
                                     </li>
                                 </a>
                             @endforeach
                         </ul>
                     @else
                         <div class="col-12 alert alert-info mt-4 mx-auto text-center">
-                            لا نتائج                                
+                            لا نتائج
                         </div>
                     @endif
                 </div>

@@ -14,11 +14,11 @@ class BooksController extends Controller
         $this->book =$book;
     }
 
-
     public function details($id)
     {
       $this->data['book']  = $this->book->getById($id);
-
       return view('books.details',$this->data);
     }
+
+
 }
