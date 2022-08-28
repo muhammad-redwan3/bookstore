@@ -43,11 +43,11 @@
                         <td>{{ $book->publisher != null ? $book->publisher->name : '' }}</td>
                         <td>{{ $book->price }}$</td>
                         <td>
-                            <a class="btn btn-info btn-sm" href="{{ route('books.edit', $book) }}"><i class="fa fa-edit"></i> تعديل</a> 
+                            <a class="btn btn-info btn-sm" href="{{ route('books.edit', $book) }}"><i class="fa fa-edit"></i> تعديل</a>
                             <form method="POST" action="{{ route('books.destroy', $book) }}" class="d-inline-block">
                                 @method('delete')
                                 @csrf
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد؟')"><i class="fa fa-trash"></i> حذف</button> 
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد؟')"><i class="fa fa-trash"></i> حذف</button>
                             </form>
                         </td>
                     </tr>
@@ -63,12 +63,11 @@
 <script src="{{ asset('theme/vendor/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('theme/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 <script>
-    $(document).ready(function() {
-        $('#books-table').DataTable({
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Arabic.json"
-            }
-        });
+    $('#books-table').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Arabic.json"
+        },
+        "bDestroy": true
     });
 </script>
 @endsection

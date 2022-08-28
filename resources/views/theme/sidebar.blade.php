@@ -4,7 +4,7 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
         <div class="sidebar-brand-icon">
-          <img style="width:70%" src="{{ asset('logo.png') }}"> 
+          <img style="width:70%" src="{{ asset('logo.png') }}">
         </div>
       </a>
 
@@ -47,18 +47,18 @@
       </li>
 
       <!-- Nav Item - Charts -->
-      <li class="nav-item {{ request()->is('admin/publishers*') ? 'active' : '' }}">
-        <a class="nav-link text-right" href="{{ route('publishers.index') }}">
-        <i class="fas fa-table"></i>
-          <span>الناشرون</span></a>
-      </li>
+{{--      <li class="nav-item {{ request()->is('admin/publishers*') ? 'active' : '' }}">--}}
+{{--        <a class="nav-link text-right" href="{{ route('publishers.index') }}">--}}
+{{--        <i class="fas fa-table"></i>--}}
+{{--          <span>الناشرون</span></a>--}}
+{{--      </li>--}}
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item {{ request()->is('admin/users*') ? 'active' : '' }}">
-        <a class="nav-link text-right" href="{{ route('users.index') }}">
-        <i class="fas fa-users"></i>
-          <span>المستخدمون</span></a>
-      </li>
+{{--      <li class="nav-item {{ request()->is('admin/users*') ? 'active' : '' }}">--}}
+{{--        <a class="nav-link text-right" href="{{ route('users.index') }}">--}}
+{{--        <i class="fas fa-users"></i>--}}
+{{--          <span>المستخدمون</span></a>--}}
+{{--      </li>--}}
 
       <li class="nav-item {{ request()->is('admin/allproduct*') ? 'active' : '' }}">
         <a class="nav-link text-right" href="{{ route('all.product') }}">

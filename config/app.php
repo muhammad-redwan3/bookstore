@@ -200,6 +200,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
 
 
+        App\Providers\ViewServiceProvider::class,
     ],
 
     /*

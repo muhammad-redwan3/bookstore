@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Facades\Storage;
+
 trait ImageUploadTrait
 {
     protected $path = "public/images/";
@@ -17,4 +19,10 @@ trait ImageUploadTrait
     {
         return time().'-'.$image->getClientOriginalName();
     }
+
+    public function deleteImage($img)
+    {
+       return Storage::disk('public')->delete($img);
+    }
+
 }

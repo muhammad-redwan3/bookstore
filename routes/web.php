@@ -1,13 +1,12 @@
 <?php
 
+use App\Http\Controllers\Cms\PurchaseController;
 use App\Http\Controllers\Front\{AuthorsController,
     BooksController,
     CartController,
     CategoryController,
     GalleryController,
-    PublishersController,
-    PurchaseController};
-
+    PublishersController};
 use Illuminate\Support\Facades\Route;
 
 
@@ -53,15 +52,7 @@ Route::get('/authors/search', [AuthorsController::class, 'search'])->name('galle
 Route::get('/authors/{author}', [AuthorsController::class, 'result'])->name('gallery.authors.show');
 
 
-//Route::prefix('/admin')->middleware('can:update-books')->group(function() {
-//    Route::get('/', [AdminsController::class, 'index'])->name('admin.index');
-//    Route::resource('/books', 'App\Http\Controllers\BooksController');
-//    Route::resource('/categories', 'App\Http\Controllers\CategoriesController');
-//    Route::resource('/publishers', 'App\Http\Controllers\PublishersController');
-//    Route::resource('/authors', 'App\Http\Controllers\AuthorsController');
-//    Route::resource('/users','App\Http\Controllers\UsersController')->middleware('can:update-users');
-//    Route::get('/allproduct', [PurchaseController::class, 'allProduct'])->name('all.product');
-//});
+
 
 Route::post('/cart', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');

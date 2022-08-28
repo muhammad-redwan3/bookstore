@@ -24,6 +24,17 @@ return new class extends Migration
             $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();
         });
+
+        Schema::create('admins', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('avatar')->nullable();
+            $table->string('password');
+            $table->boolean('active')->default(true);
+            $table->enum('type',['owner','admin','assistant'])->default('assistant');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -34,5 +45,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('admins');
     }
 };

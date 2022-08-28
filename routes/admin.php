@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Cms\{AdminsController, BooksController, CategoriesController, PurchaseController ,
+    AuthorsController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+Route::prefix('/admin')->group(function() {
+    Route::get('/', [AdminsController::class, 'index'])->name('admin.index');
+    Route::resources([
+        'books' => BooksController::class,
+        'categories' => CategoriesController::class,
+        'authors' => AuthorsController::class,
+        'admins' => AdminsController::class,
+    ]);
+
+    Route::get('/allproduct', [PurchaseController::class, 'allProduct'])->name('all.product');
+});

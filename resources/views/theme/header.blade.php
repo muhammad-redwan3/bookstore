@@ -9,16 +9,16 @@
 
   <!-- Topbar Navbar -->
   <ul class="navbar-nav mr-auto">
-    
+
     <div class="topbar-divider d-none d-sm-block"></div>
 
-    
+
 
     <!-- Nav Item - User Information -->
     <li class="nav-item dropdown no-arrow">
       <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
-        <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->name }}</span>
+{{--        <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->name }}</span>--}}
       </a>
       <!-- Dropdown - User Information -->
       <div class="dropdown-menu dropdown-menu-left shadow animated--grow-in" style="right:-90px">
