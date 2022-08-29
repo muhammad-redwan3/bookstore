@@ -18,12 +18,12 @@ Class AuthorRepository implements AuthorInterface
 
     public function store($request)
     {
-        // TODO: Implement store() method.
+        return $this->Author::create($this->extract($request));
     }
 
     public function update($request, $id)
     {
-        // TODO: Implement update() method.
+        return $this->getById($id)->update($this->extract($request));
     }
 
     public function getById($id)
@@ -39,5 +39,13 @@ Class AuthorRepository implements AuthorInterface
     public function search($request)
     {
         return $this->Author->withCount('books')->where('name','like',"%{$request}%")->paginate(12);
+    }
+
+    private function extract($request): array
+    {
+        return [
+            'name' => $request->name,
+            'description' => $request->description,
+        ];
     }
 }

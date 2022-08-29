@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http;
+namespace App\Http\Requests\Book;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class BooksStoreRequest extends FormRequest
 {
@@ -11,7 +10,7 @@ class BooksStoreRequest extends FormRequest
     {
         return [
             'title' => 'required|string',
-            'isbn' => ['required', 'alpha_num', Rule::unique('books', 'isbn')],
+//            'isbn' => ['required', 'alpha_num', Rule::unique('books', 'isbn')],
             'cover_image' => 'image|required',
             'category' => 'required|exists:categories,id',
             'authors' => 'required|exists:authors,id',

@@ -27,19 +27,19 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label for="isbn" class="col-md-4 col-form-label text-md-right">الرقم التسلسلي</label>
+{{--                <div class="form-group row">--}}
+{{--                    <label for="isbn" class="col-md-4 col-form-label text-md-right">الرقم التسلسلي</label>--}}
 
-                    <div class="col-md-6">
-                        <input id="isbn" type="text" class="form-control @error('isbn') is-invalid @enderror" name="isbn" value="{{ old('isbn') }}" autocomplete="isbn">
+{{--                    <div class="col-md-6">--}}
+{{--                        <input id="isbn" type="text" class="form-control @error('isbn') is-invalid @enderror" name="isbn" value="{{ old('isbn') }}" autocomplete="isbn">--}}
 
-                        @error('isbn')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
+{{--                        @error('isbn')--}}
+{{--                            <span class="invalid-feedback" role="alert">--}}
+{{--                                <strong>{{ $message }}</strong>--}}
+{{--                            </span>--}}
+{{--                        @enderror--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
                 <div class="form-group row">
                     <label for="cover_image" class="col-md-4 col-form-label text-md-right">صورة الكتاب</label>

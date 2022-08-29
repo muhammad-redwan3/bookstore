@@ -22,7 +22,7 @@ trait ImageUploadTrait
 
     public function deleteImage($img)
     {
-       return Storage::disk('public')->delete($img);
+       return   Storage::delete($img);
     }
 
 }

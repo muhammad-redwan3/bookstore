@@ -18,12 +18,12 @@ Class PublisherRepository implements PublisherInterface
 
     public function store($request)
     {
-        // TODO: Implement store() method.
+        return $this->Publisher::create($this->extract($request));
     }
 
     public function update($request, $id)
     {
-        // TODO: Implement update() method.
+        return $this->getById($id)->update($this->extract($request));
     }
 
     public function getById($id)
@@ -39,5 +39,13 @@ Class PublisherRepository implements PublisherInterface
     public function search($request)
     {
         return $this->Publisher->withCount('books')->where('name','like',"%{$request}%")->paginate(12);
+    }
+
+    private function extract($request): array
+    {
+        return [
+            'name' =>$request->name,
+            'address' =>$request->address,
+        ];
     }
 }

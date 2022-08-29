@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Cms;
 
-use App\Http\BooksStoreRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Book\{BooksStoreRequest,BookUpdateRequest};
 use App\Repositories\Books\BookRepository;
-use Illuminate\Http\Request;
 
 class BooksController extends Controller
 {
@@ -14,6 +13,7 @@ class BooksController extends Controller
     public function __construct(BookRepository $book)
     {
         $this->book =$book;
+        $this->middleware('auth:admin');
     }
 
     public function index()
@@ -36,44 +36,35 @@ class BooksController extends Controller
     }
 
 
-    public function show(Book $book)
+    public function show($id)
     {
-        return view('admin.books.show', compact('book'));
+        $this->data['book'] = $this->book->getById($id);
+        return view('admin.books.show',$this->data);
     }
 
 
-    public function edit(Book $book)
+    public function edit($id)
     {
-
-        return view('admin.books.edit');
+         $this->data['book'] = $this->book->getById($id);
+        return view('admin.books.edit',$this->data);
     }
 
 
-    public function update(Request $request)
+    public function update(BookUpdateRequest $request , $id)
     {
-
-
-        return redirect(route('books.show'));
-    }
-
-    public function destroy(Book $book)
-    {
-
-
-
-
-        session()->flash('flash_message','تم حذف الكتاب بنجاح');
-
+        $request->validated();
+        $this->book->update($request,$id);
+        session()->flash('flash_message','تم تعديل الكتاب بنجاح');
         return redirect(route('books.index'));
     }
 
-    public function details(Book $book)
+    public function destroy($id)
     {
-
+        $this->book->delete($id);
+        session()->flash('flash_message','تم حذف الكتاب بنجاح');
+        return redirect(route('books.index'));
     }
 
-    public function rate(Request $request)
-    {
 
-    }
+
 }

@@ -3,14 +3,16 @@
 namespace App\Repositories\Books;
 
 use App\Models\Book;
-use App\Traits\{ImageUploadTrait,Sluggable};
+use App\Traits\{generateIsbn, ImageUploadTrait, Sluggable};
 
 use Illuminate\Support\Str;
 
 class BookRepository implements BookInterface
 {
-    use ImageUploadTrait,Sluggable;
+    use ImageUploadTrait, Sluggable ,generateIsbn;
+
     private $book;
+
     public function __construct(Book $book)
     {
         $this->book = $book;
@@ -24,46 +26,56 @@ class BookRepository implements BookInterface
     public function store($request)
     {
         $request->cover_image = $this->StoreImage($request->cover_image);
-        $book= $this->book::create($this->extract($request)+['cover_image' =>$request->cover_image]);
+        $book = $this->book::create($this->extract($request) + ['cover_image' => $request->cover_image]+['isbn' => $this->generateIsbn()]);
         $book->authors()->attach($request->authors);
         return $book;
     }
 
     public function update($request, $id)
     {
-        // TODO: Implement update() method.
+        $book = $this->getById($id);
+
+        if ($request->has('cover_image')) {
+            $this->deleteImage($book->cover_image);
+            $book->cover_image = $this->StoreImage($request->cover_image);
+            $this->getById($id)->update($this->extract($request) + ['cover_image' => $book->cover_image]);
+        } else {
+            $this->getById($id)->update($this->extract($request));
+        }
+        $book->authors()->detach();
+        $book->authors()->attach($request->authors);
     }
 
     public function getById($id)
     {
-      return $this->book->findOrFail($id);
+        return $this->book->findOrFail($id);
     }
 
     public function delete($id)
     {
-        return $this->getById($id)->delete();
+        $book = $this->getById($id);
+        $this->deleteImage($book->cover_image);
+        return $book->delete();
     }
 
     public function search($request)
     {
-        return $this->book->where('title','like',"%{$request}%")->paginate(12);
+        return $this->book->where('title', 'like', "%{$request}%")->paginate(12);
     }
 
     public function getByCategory($id)
     {
-        return $this->book->whereHas('category' ,function ($q) use ($id)
-        {
-            $q->where('category_id',$id);
+        return $this->book->whereHas('category', function ($q) use ($id) {
+            $q->where('category_id', $id);
         })->with('category')->paginate(12);
     }
 
     protected function extract($request): array
     {
-        $slug= Str::slug($request->title);
-        $unique = $this->uniqueSlug($slug,'books');
+        $slug = Str::slug($request->title);
+        $unique = $this->uniqueSlug($slug, 'books');
         return [
             'title' => $request->title,
-            'isbn' => $request->isbn,
             'slug' => $unique,
             'category_id' => $request->category,
             'publisher_id' => $request->input('publisher', null),

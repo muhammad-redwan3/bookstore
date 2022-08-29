@@ -3,10 +3,14 @@
 namespace App\Repositories\Categories;
 
 use App\Models\Category;
+use App\Traits\Sluggable;
+use Illuminate\Support\Str;
 
 class CategoryRepository implements CategoryInterface
 {
+    use Sluggable;
     private $category;
+
     public function __construct(Category $category)
     {
         $this->category = $category;
@@ -19,12 +23,12 @@ class CategoryRepository implements CategoryInterface
 
     public function store($request)
     {
-        // TODO: Implement store() method.
+       return $this->category::create($this->extract($request));
     }
 
     public function update($request, $id)
     {
-        // TODO: Implement update() method.
+         return $this->getById($id)->update($this->extract($request));
     }
 
     public function getById($id)
@@ -40,5 +44,16 @@ class CategoryRepository implements CategoryInterface
     public function search($request)
     {
         return $this->category->where('name','like',"%{$request}%")->paginate(12);
+    }
+
+    private function extract($request): array
+    {
+        $slug =  $this->Slug($request->name);
+        $unique = $this->uniqueSlug($slug, 'books');
+        return [
+            'name' => $request->name,
+            'description' => $request->description,
+            'slug' => $unique
+        ];
     }
 }

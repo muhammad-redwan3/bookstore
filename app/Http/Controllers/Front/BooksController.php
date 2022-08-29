@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\Books\BookRepository;
+use Illuminate\Http\Request;
 
 class BooksController extends Controller
 {
@@ -18,6 +19,10 @@ class BooksController extends Controller
     {
       $this->data['book']  = $this->book->getById($id);
       return view('books.details',$this->data);
+    }
+    public function rate(Request $request)
+    {
+
     }
 
 

@@ -4,7 +4,7 @@ use Carbon\Carbon;
 
 function getImage($img): string
 {
-    return  env('APP_URL').'/storage/'.$img;
+    return  env('APP_URL').'/storage/images/'.$img;
 }
 
 function getThumbImage($img): string

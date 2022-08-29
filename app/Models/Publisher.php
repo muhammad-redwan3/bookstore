@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Publisher extends Model
 {
     use HasFactory;
-
+    protected $guarded =[];
     public function books(): HasMany
     {
         return $this->hasMany(Book::class);

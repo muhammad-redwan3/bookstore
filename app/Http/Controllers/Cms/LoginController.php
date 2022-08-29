@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
-    public function index()
+    public function __construct()
     {
-
+        $this->middleware('guest:admin');
     }
 
     public function getLogin()
@@ -31,11 +31,11 @@ class LoginController extends Controller
         }
 
         if (auth()->guard('admin')->attempt(['email'=>$request->input('email'),'password' => $request->input('password')])){
-            toastr()->info(__('site.cms.action.success_login'));
-            return redirect(RouteServiceProvider::Admin);
+            session()->flash('flash_message', 'تمت عملية تسجيل الدخول بنجاح');
+            return redirect(route('admin.index'));
         }else{
-            toastr()->info(__('site.cms.action.error_login'));
-            return redirect(route('admin.login'));
+            session()->flash('flash_message', 'كلمة السر أو الإيميل خطأ');
+            return redirect(route('getLogin'));
         }
     }
 }

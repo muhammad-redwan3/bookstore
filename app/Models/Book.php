@@ -35,4 +35,9 @@ class Book extends Model
     public function ratings(){
 
     }
+
+    public function dirty(Book $book)
+    {
+         return  $book->isDirty('isbn');
+    }
 }

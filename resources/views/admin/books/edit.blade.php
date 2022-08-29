@@ -8,10 +8,10 @@
 <div class="row justify-content-center">
     <div class="card mb-4 col-md-8">
         <div class="card-header text-">
-            عدّل بيانات الكتاب   
+            عدّل بيانات الكتاب
         </div>
         <div class="card-body">
-            <form action="{{ route('books.update', $book) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('books.update',$book->id) }}" method="POST" enctype="multipart/form-data">
                 @method('patch')
                 @csrf
                 <div class="form-group row">
@@ -32,13 +32,7 @@
                     <label for="isbn" class="col-md-4 col-form-label text-md-right">الرقم التسلسلي</label>
 
                     <div class="col-md-6">
-                        <input id="isbn" type="text" class="form-control @error('isbn') is-invalid @enderror" name="isbn" value="{{ $book->isbn }}" autocomplete="isbn">
-
-                        @error('isbn')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                        <input disabled id="isbn" type="text" class="form-control @error('isbn') is-invalid @enderror" name="isbn" value="{{ $book->isbn }}" autocomplete="isbn">
                     </div>
                 </div>
 
@@ -54,7 +48,7 @@
                             </span>
                         @enderror
 
-                        <img id="cover-image-thumb" class="img-fluid img-thumbnail" src="{{ asset('storage/' . $book->cover_image) }}">
+                        <img id="cover-image-thumb" class="img-fluid img-thumbnail" src="{{ getImage($book->cover_image) }}">
                     </div>
                 </div>
 

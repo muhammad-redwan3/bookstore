@@ -28,12 +28,39 @@
                         <td>{{ $author->name }}</td>
                         <td>{{ $author->description }}</td>
                         <td>
-                            <a class="btn btn-info btn-sm" href="{{ route('authors.edit', $author) }}"><i class="fa fa-edit"></i> تعديل</a> 
-                            <form method="POST" action="{{ route('authors.destroy', $author) }}" class="d-inline-block">
-                                @method('delete')
-                                @csrf
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد؟')"><i class="fa fa-trash"></i> حذف</button> 
-                            </form>
+                            <a class="btn btn-info btn-sm" href="{{ route('authors.edit', $author) }}"><i class="fa fa-edit"></i> تعديل</a>
+                            <button class="btn btn-danger btn-sm" data-toggle="modal"
+                                    data-target="#delete{{ $author->id }}"><i class="fa fa-trash"></i> حذف</button>
+                            <div class="modal fade" id="delete{{ $author->id }}" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title"
+                                                id="exampleModalLabel">
+                                                هل أنت متأكد من عملية الحذف
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="POST" action="{{ route('authors.destroy', $author) }}" method="post">
+                                                @method('delete')
+                                                @csrf
+                                                <input id="id" type="hidden" name="id" class="form-control"
+                                                       value="{{ $author->id }}">
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">إلغاء الأمر</button>
+                                                    <button type="submit"
+                                                            class="btn btn-danger">تأكيد على الحذف</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
