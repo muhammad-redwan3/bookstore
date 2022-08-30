@@ -1,0 +1,14 @@
+{
+    "name": "vendor_name/Providers",
+    "description": "description",
+    "minimum-stability": "stable",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Muhammed RIDVAN",
+            "email": "email@example.com"
+        }
+    ],
+    "require": {
+    }
+}

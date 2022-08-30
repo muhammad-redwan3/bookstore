@@ -11,4 +11,5 @@ interface BookInterface extends MainInterface
 
     public function search($request);
     public function getByCategory($id);
+    public function rate($request,$id);
 }

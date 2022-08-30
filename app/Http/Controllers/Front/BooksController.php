@@ -20,9 +20,11 @@ class BooksController extends Controller
       $this->data['book']  = $this->book->getById($id);
       return view('books.details',$this->data);
     }
-    public function rate(Request $request)
+    public function rate(Request $request ,$id)
     {
+        $this->book->rate($request,$id);
 
+        return back();
     }
 
 

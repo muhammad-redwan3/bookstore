@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -63,5 +64,21 @@ class User extends Authenticatable
     {
 
     }
+
+    public function rating():HasMany
+    {
+        return $this->hasMany(Rating::class);
+    }
+
+    public function rated(Book $book)
+    {
+        return $this->rating->where('book_id',$book->id)->isNotEmpty();
+    }
+
+    public function bookRating(Book $book)
+    {
+        return $this->rated($book)? $this->rating->where('book_id',$book->id)->first():null;
+    }
+
 
 }

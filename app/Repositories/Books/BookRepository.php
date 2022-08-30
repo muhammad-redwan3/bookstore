@@ -3,6 +3,7 @@
 namespace App\Repositories\Books;
 
 use App\Models\Book;
+use App\Models\Rating;
 use App\Traits\{generateIsbn, ImageUploadTrait, Sluggable};
 
 use Illuminate\Support\Str;
@@ -85,5 +86,24 @@ class BookRepository implements BookInterface
             'number_of_copies' => $request->number_of_copies,
             'price' => $request->price,
         ];
+    }
+
+
+    public function rate($request, $id)
+    {
+
+       if (auth()->user()->rated($this->getById($id)))
+       {
+           $rating = Rating::where(['user_id'=>auth()->id(),'book_id' => $id])->first();
+           $rating->value =$request->value;
+           $rating->save();
+       }else
+       {
+           $rating = new Rating();
+           $rating->user_id = auth()->id();
+           $rating->book_id = $id;
+           $rating->value = $request->value;
+           $rating->save();
+       }
     }
 }

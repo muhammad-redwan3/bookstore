@@ -10,7 +10,7 @@ class AdminSeeder extends Seeder
 {
     public function run()
     {
-        $admin = Admin::create([
+       Admin::create([
             'name'=>'Root',
             'email'=>'admin@gmail.com',
             'avatar'=>'',

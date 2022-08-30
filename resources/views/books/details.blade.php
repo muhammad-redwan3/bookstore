@@ -109,7 +109,7 @@
                     </table>
                     @auth
                         <h4 class="mb-3">قيّم هذا الكتاب<h4>
-                        @if ($bookfind)
+{{--                        @if ($bookfind)--}}
                             @if(auth()->user()->rated($book))
                                 <div class="rating">
                                     <span class="rating-star {{ auth()->user()->bookRating($book)->value == 5 ? 'checked' : '' }}" data-value="5"></span>
@@ -127,11 +127,11 @@
                                     <span class="rating-star" data-value="1"></span>
                                 </div>
                             @endif
-                        @else
-                            <div class="alert alert-danger mt-4" role="alert">
-                                    يجب شراء الكتاب لتستطيع تقيمه
-                            </div>
-                        @endif
+{{--                        @else--}}
+{{--                            <div class="alert alert-danger mt-4" role="alert">--}}
+{{--                                    يجب شراء الكتاب لتستطيع تقيمه--}}
+{{--                            </div>--}}
+{{--                        @endif--}}
                     @endauth
                 </div>
             </div>
