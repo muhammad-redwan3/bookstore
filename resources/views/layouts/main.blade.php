@@ -101,11 +101,11 @@
                             @auth
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('cart.view') }}">
-{{--                                        @if(Auth::user()->booksInCart()->count() > 0)--}}
-{{--                                            <span class="badge bg-secondary">{{ Auth::user()->booksInCart()->count() }}</span>--}}
-{{--                                        @else--}}
-{{--                                            <span class="badge bg-secondary">0</span>--}}
-{{--                                        @endif--}}
+                                        @if(Auth::user()->booksInCart()->count() > 0)
+                                            <span class="badge bg-secondary">{{ Auth::user()->booksInCart()->count() }}</span>
+                                        @else
+                                            <span class="badge bg-secondary">0</span>
+                                        @endif
                                             العربة
                                         <i class="fas fa-shopping-cart"></i>
                                     </a>

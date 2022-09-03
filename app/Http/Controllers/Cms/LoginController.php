@@ -32,7 +32,7 @@ class LoginController extends Controller
 
         if (auth()->guard('admin')->attempt(['email'=>$request->input('email'),'password' => $request->input('password')])){
             session()->flash('flash_message', 'تمت عملية تسجيل الدخول بنجاح');
-            return redirect(route('admin.index'));
+            return redirect(route('dashboard.index'));
         }else{
             session()->flash('flash_message', 'كلمة السر أو الإيميل خطأ');
             return redirect(route('getLogin'));

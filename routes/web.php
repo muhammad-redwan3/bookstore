@@ -1,15 +1,13 @@
 <?php
 
-use App\Http\Controllers\Cms\PurchaseController;
 use App\Http\Controllers\Front\{AuthorsController,
     BooksController,
     CartController,
     CategoryController,
     GalleryController,
     PublishersController};
+use App\Http\Controllers\Front\PurchaseController;
 use Illuminate\Support\Facades\Route;
-
-
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

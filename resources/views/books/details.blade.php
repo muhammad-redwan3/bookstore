@@ -45,7 +45,7 @@
                                     </div>
                                 </span>
 
-{{--                                <span>عدد المقيّمين {{ $book->ratings()->count() }} مستخدم</span>--}}
+                                <span>عدد المقيّمين {{ $book->ratings()->count() }} مستخدم</span>
                             </td>
                         </tr>
 
@@ -57,7 +57,7 @@
                         @endif
                         <tr>
                             <th>صورة الغلاف</th>
-                            <td><img class="img-fluid img-thumbnail" src="{{ asset('storage/' . $book->cover_image) }}"></td>
+                            <td><img class="img-fluid img-thumbnail" src="{{ getImage($book->cover_image) }}"></td>
                         </tr>
                         @if ($book->category)
                             <tr>
@@ -109,7 +109,7 @@
                     </table>
                     @auth
                         <h4 class="mb-3">قيّم هذا الكتاب<h4>
-{{--                        @if ($bookfind)--}}
+                        @if ($bookFind)
                             @if(auth()->user()->rated($book))
                                 <div class="rating">
                                     <span class="rating-star {{ auth()->user()->bookRating($book)->value == 5 ? 'checked' : '' }}" data-value="5"></span>
@@ -127,11 +127,11 @@
                                     <span class="rating-star" data-value="1"></span>
                                 </div>
                             @endif
-{{--                        @else--}}
-{{--                            <div class="alert alert-danger mt-4" role="alert">--}}
-{{--                                    يجب شراء الكتاب لتستطيع تقيمه--}}
-{{--                            </div>--}}
-{{--                        @endif--}}
+                        @else
+                            <div class="alert alert-danger mt-4" role="alert">
+                                    يجب شراء الكتاب لتستطيع تقيمه
+                            </div>
+                        @endif
                     @endauth
                 </div>
             </div>
@@ -148,7 +148,7 @@
 
             $.ajax({
                 type: 'post',
-                url: {{ $book->id }} + '/rate',
+                url: '{{route('book.rate',$book->id)}}',
                 data: {
                     '_token': $('meta[name="csrf-token"]').attr('content'),
                     'value' : submitStars
@@ -173,7 +173,7 @@
             var bookId = $(this).parents(".form").find("#bookId").val()
             var quantity = $(this).parents(".form").find("#quantity").val()
 
-
+            console.log(bookId);
             $.ajax({
                 method: 'POST',
                 url: url,
@@ -187,7 +187,7 @@
                     toastr.success('تم إضافة الكتاب بنجاح')
                 },
                 error: function() {
-                    alert('حدث خطأ ما');
+                    toastr.error('حدث خطأ ما');
                 }
             })
         });

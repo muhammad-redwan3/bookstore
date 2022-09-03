@@ -8,9 +8,9 @@
             @if($myBooks->count())
                 @foreach($myBooks as $book)
                     <div class="row p-2 bg-white border rounded">
-                        <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="{{ asset('storage/' . $book->cover_image) }}"></div>
+                        <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="{{ getImage($book->cover_image) }}"></div>
                         <div class="col-md-6 my-auto">
-                            <h5><a href="{{ route('book.details', $book) }}">{{ $book->title }}</a></h5>
+                            <h5><a href="{{ route('book.details',[$book->id,$book->slug]) }}">{{ $book->title }}</a></h5>
                             <div class="d-flex flex-row">
                                 <div class="ratings mr-2">
                                     <span class="score">
@@ -42,7 +42,7 @@
                                 <h4 class="mr-1">{{ $book->pivot->price }}$</h4>
                             </div>
                             <h6 class="text-success">المجموع الكلي: {{ $book->pivot->number_of_copies * $book->pivot->price}}$</h6>
-                            <div class="d-flex flex-column mt-4"><a href="{{ route('book.details', $book) }}" class="btn btn-outline-primary btn-sm" type="button">تفاصيل الكتاب</a></div>
+                            <div class="d-flex flex-column mt-4"><a href="{{ route('book.details', [$book->id,$book->slug]) }}" class="btn btn-outline-primary btn-sm" type="button">تفاصيل الكتاب</a></div>
                         </div>
                     </div>
                 @endforeach

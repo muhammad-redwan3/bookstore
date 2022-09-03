@@ -6,15 +6,19 @@
     <div class="row justify-content-center">
         <div id="success" style="display:none" class="col-md-8 text-center h3 p-4 bg-success text-light rounded">تمت عملية الشراء بنجاح</div>
         @if(session('message'))
-            <div class="col-md-8 text-center h3 p-4 bg-success text-light rounded">تمت عملية الشراء بنجاح </div> 
+            <div class="col-md-8 text-center h3 p-4 bg-success text-light rounded">تمت عملية الشراء بنجاح </div>
         @endif
-
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success alert-block">
+                <strong>{{ $message }}</strong>
+            </div>
+        @endif
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">عربة التسوق</div>
 
                 <div class="card-body">
-                    
+
                     @if($items->count())
 
                     <table class="table">
@@ -63,7 +67,7 @@
                     </a>
                     @else
                         <div class="alert alert-info text-center">
-                            لا يوجد كتب في العربة   
+                            لا يوجد كتب في العربة
                         </div>
                     @endif
                 </div>

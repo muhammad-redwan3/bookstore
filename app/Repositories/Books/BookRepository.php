@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class BookRepository implements BookInterface
 {
-    use ImageUploadTrait, Sluggable ,generateIsbn;
+    use ImageUploadTrait, Sluggable, generateIsbn;
 
     private $book;
 
@@ -21,13 +21,13 @@ class BookRepository implements BookInterface
 
     public function all()
     {
-        return $this->book::with('category')->paginate(12);
+        return $this->book::with('category','ratings')->paginate(12);
     }
 
     public function store($request)
     {
         $request->cover_image = $this->StoreImage($request->cover_image);
-        $book = $this->book::create($this->extract($request) + ['cover_image' => $request->cover_image]+['isbn' => $this->generateIsbn()]);
+        $book = $this->book::create($this->extract($request) + ['cover_image' => $request->cover_image] + ['isbn' => $this->generateIsbn()]);
         $book->authors()->attach($request->authors);
         return $book;
     }
@@ -88,22 +88,67 @@ class BookRepository implements BookInterface
         ];
     }
 
-
+//    logic for Rating
     public function rate($request, $id)
     {
 
-       if (auth()->user()->rated($this->getById($id)))
-       {
-           $rating = Rating::where(['user_id'=>auth()->id(),'book_id' => $id])->first();
-           $rating->value =$request->value;
-           $rating->save();
-       }else
-       {
-           $rating = new Rating();
-           $rating->user_id = auth()->id();
-           $rating->book_id = $id;
-           $rating->value = $request->value;
-           $rating->save();
-       }
+        if (auth()->user()->rated($this->getById($id))) {
+            $rating = Rating::where(['user_id' => auth()->id(), 'book_id' => $id])->first();
+            $rating->value = $request->value;
+            $rating->save();
+        } else {
+            $rating = new Rating();
+            $rating->user_id = auth()->id();
+            $rating->book_id = $id;
+            $rating->value = $request->value;
+            $rating->save();
+        }
     }
+//   end logic for Rating
+
+
+
+//    logic for cart
+    public function quantity($id)
+    {
+        return auth()->user()->booksInCart()->where('book_id', $id)->first()->pivot->number_of_copies;
+    }
+
+    public function stock($request)
+    {
+        return $this->getById($request->id)->number_of_copies;
+    }
+
+    public function updatePivot($id,$quantity)
+    {
+       return auth()->user()->booksInCart()->updateExistingPivot($id, ['number_of_copies'=> $quantity]);
+    }
+
+
+    public function storeQuantity($request)
+    {
+       return auth()->user()->booksInCart()->attach($request->id, ['number_of_copies'=> $request->quantity,'price' => $this->getById($request->id)->price]);
+    }
+
+    public function countInCart()
+    {
+       return auth()->user()->booksInCart()->count();
+    }
+
+    public function containsInCart($request)
+    {
+        return  auth()->user()->booksInCart->contains($this->getById($request->id));
+    }
+
+    public function viewCart()
+    {
+       return auth()->user()->booksInCart;
+    }
+
+    public function removeBook($id)
+    {
+       return auth()->user()->booksInCart()->detach($id);
+    }
+
 }
+//   end logic for cart

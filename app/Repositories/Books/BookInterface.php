@@ -12,4 +12,12 @@ interface BookInterface extends MainInterface
     public function search($request);
     public function getByCategory($id);
     public function rate($request,$id);
+    public function quantity($id);
+    public function stock($request);
+    public function updatePivot($id,$quantity);
+    public function storeQuantity($request);
+    public function countInCart();
+    public function containsInCart($request);
+    public function viewCart();
+    public function removeBook($id);
 }

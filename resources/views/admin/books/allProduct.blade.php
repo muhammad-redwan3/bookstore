@@ -27,7 +27,7 @@
                 @foreach($allBooks as $product)
                     <tr>
                         <td>{{ $product->user::find($product->user_id)->name }}</td>
-                        <td><a href="{{ route('book.details', $product->book_id) }}">{{ $product->book::find($product->book_id)->title }}</a></td>
+                        <td><a href="{{ route('book.details', [$product->book_id,$product->book->slug]) }}">{{ $product->book::find($product->book_id)->title }}</a></td>
                         <td>{{ $product->price }}$</td>
                         <td>{{ $product->number_of_copies }}</td>
                         <td>{{ $product->price * $product->number_of_copies}}$</td>
