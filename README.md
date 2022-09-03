@@ -19,4 +19,9 @@ one language
 
 ## using
 <li>repository pattern</li>
+<li> Cashier(Stripe)</li>
+<li> multiple authentication guards</li>
+<li>View Composers</li>
+<li>ajax</li>
+
 
