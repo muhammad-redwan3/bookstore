@@ -6,6 +6,9 @@
 <p align="center">
 <img src="Red.images/2.png" width="400"></p>
 
+<p align="center">
+<img src="Red.images/3.png" width="400"></p>
+
 ## About BookStore
 
 
